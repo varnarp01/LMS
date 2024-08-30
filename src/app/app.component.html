@@ -1,0 +1,22 @@
+<div class="container mx-auto p-4">
+  <!-- Login form appears when no user is logged in -->
+  <div *ngIf="!currentUser">
+    <app-login (loginSuccess)="handleLoginSuccess()"></app-login>
+  </div>
+  
+  <!-- Dashboard appears when a user is logged in -->
+  <div *ngIf="currentUser">
+    <div class="d-flex justify-content-between align-items-center mb-6">
+      <h1 class="text-3xl font-bold">Library Management System</h1>
+      <div class="ms-auto"> <!-- Use 'ms-auto' to push the button to the right -->
+        <button class="btn btn-secondary" (click)="handleLogout()">Logout</button>
+      </div>
+    </div>    
+
+    <!-- Display librarian dashboard for librarian users -->
+    <app-librarian-dashboard *ngIf="currentUser.role === 'librarian'"></app-librarian-dashboard>
+    
+    <!-- Display customer dashboard for customer users -->
+    <app-customer-dashboard *ngIf="currentUser.role === 'customer'"></app-customer-dashboard>
+  </div>
+</div>

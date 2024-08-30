@@ -1,0 +1,119 @@
+<div class="container">
+  <div class="row justify-content-between align-items-center mb-4">
+    <div class="col">
+      <h2 class="text-primary">Librarian Dashboard</h2>
+    </div>
+  </div>
+
+  <!-- Add New Book Form -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h5 class="card-title mb-0">Add New Book</h5>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="onAddBook()" class="row g-3">
+        <div class="col-md-4">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Title"
+            [(ngModel)]="newBook.title"
+            name="title"
+            required
+          />
+        </div>
+        <div class="col-md-4">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Author"
+            [(ngModel)]="newBook.author"
+            name="author"
+            required
+          />
+        </div>
+        <div class="col-md-3">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="ISBN"
+            [(ngModel)]="newBook.isbn"
+            name="isbn"
+            required
+          />
+        </div>
+        <div class="col-md-1">
+          <button type="submit" class="btn btn-success w-100">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Book Management Section -->
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title mb-0">Book Management</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li
+        class="list-group-item d-flex justify-content-between align-items-center"
+        *ngFor="let book of books"
+      >
+        <span>{{ book.title }} by {{ book.author }}</span>
+        <div>
+          <button class="btn btn-outline-primary btn-sm me-2" (click)="setEditingBook(book)">Edit</button>
+          <button class="btn btn-outline-danger btn-sm" (click)="onDeleteBook(book.id)">Delete</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- Edit Book Modal -->
+<div class="modal fade show" tabindex="-1" [ngClass]="{'d-block': isEditModalOpen}" *ngIf="isEditModalOpen">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Book</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeEditModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="onEditBook()" class="row g-3">
+          <div class="col-md-12">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Title"
+              [(ngModel)]="editTitle"
+              name="editTitle"
+              required
+            />
+          </div>
+          <div class="col-md-12">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Author"
+              [(ngModel)]="editAuthor" 
+              name="editAuthor"
+              required
+            />
+          </div>
+          <div class="col-md-12">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="ISBN"
+              [(ngModel)]="editIsbn" 
+              name="editIsbn"
+              required
+            />
+          </div>
+          <div class="col-md-12">
+            <button type="submit" class="btn btn-primary w-100">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
